@@ -1,0 +1,41 @@
+# IDEs and editors
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+/out/
+
+
+# Backend
+.gradle
+backend/build/
+
+
+# Angular generated:
+# compiled output
+ui/dist
+ui/tmp
+ui/out-tsc
+
+# dependencies
+ui/node_modules/
+
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+
+*.tar
+backend/out/
+
