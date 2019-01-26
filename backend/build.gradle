@@ -1,18 +1,32 @@
 buildscript {
     ext {
         springBootVersion = '2.1.2.RELEASE'
+        jooqVersion = '3.11.9'
     }
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath 'org.postgresql:postgresql:42.2.2'
+
+        classpath "org.jooq:jooq-codegen:${jooqVersion}"
+        classpath "org.jooq:jooq:${jooqVersion}"
+
+        // jaxb is removed from java 11, therefore causing problems with using JOOQ
+        classpath 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
+        classpath 'javax.xml.bind:jaxb-api:2.3.0'
     }
+}
+
+plugins {
+    id 'nu.studer.jooq' version '3.0.2'
 }
 
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'nu.studer.jooq'
 
 group = 'com.coding'
 version = '0.0.1-SNAPSHOT'
@@ -24,7 +38,50 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.flywaydb:flyway-core'
-    runtimeOnly 'org.postgresql:postgresql'
+    compile 'org.springframework.boot:spring-boot-starter-jooq'
+
+    compile group: 'org.jooq', name: 'jooq-codegen', version: jooqVersion
+    compile group: 'org.modelmapper.extensions', name: 'modelmapper-jooq', version: '2.3.2'
+
+    jooqRuntime 'postgresql:postgresql:9.1-901.jdbc4'
+    jooqRuntime group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.1'
+    jooqRuntime group: 'com.sun.activation', name: 'javax.activation', version: '1.2.0'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+
+jooq {
+    version = jooqVersion
+    edition = 'OSS'
+    sample(sourceSets.main) {
+        jdbc {
+            driver = 'org.postgresql.Driver'
+            url = 'jdbc:postgresql://localhost:5432/postgres'
+            user = 'postgres'
+            password = 'secure_password'
+        }
+        generator {
+            name = 'org.jooq.codegen.DefaultGenerator'
+            strategy {
+                name = 'org.jooq.codegen.DefaultGeneratorStrategy'
+            }
+            database {
+                name = 'org.jooq.meta.postgres.PostgresDatabase'
+                inputSchema = 'public'
+            }
+            generate {
+                relations = true
+                deprecated = false
+                records = true
+                immutablePojos = true
+                fluentSetters = true
+
+            }
+            target {
+                packageName = 'com.coding.challenge.db'
+                directory = 'src/main/java'
+            }
+        }
+    }
 }
