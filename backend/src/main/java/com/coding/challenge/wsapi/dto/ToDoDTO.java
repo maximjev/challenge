@@ -1,22 +1,22 @@
-package com.coding.challenge.domain;
+package com.coding.challenge.wsapi.dto;
 
 import java.time.LocalDateTime;
 
-public class ToDoItem {
+public class ToDoDTO {
     private Integer id;
     private String description;
     private boolean archived;
     private LocalDateTime createdOn;
 
-    public ToDoItem() {
-    }
-
-    public ToDoItem(String description) {
-        this.description = description;
+    public ToDoDTO() {
     }
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -37,5 +37,9 @@ public class ToDoItem {
 
     public LocalDateTime getCreatedOn() {
         return createdOn;
+    }
+
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
     }
 }

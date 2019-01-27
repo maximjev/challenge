@@ -41,13 +41,20 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-jooq'
 
     compile group: 'org.jooq', name: 'jooq-codegen', version: jooqVersion
-    compile group: 'org.modelmapper.extensions', name: 'modelmapper-jooq', version: '2.3.2'
+    
+    compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    // removed from JDK, still used in Mapstruct
+    compile 'javax.xml.ws:jaxws-api:2.2.6'
 
+    compile group: 'postgresql', name: 'postgresql', version: '9.1-901.jdbc4'
     jooqRuntime 'postgresql:postgresql:9.1-901.jdbc4'
     jooqRuntime group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.1'
     jooqRuntime group: 'com.sun.activation', name: 'javax.activation', version: '1.2.0'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 }
 
 

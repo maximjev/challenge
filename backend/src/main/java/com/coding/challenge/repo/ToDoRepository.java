@@ -1,53 +1,52 @@
 package com.coding.challenge.repo;
 
-import com.coding.challenge.db.tables.Todo;
 import com.coding.challenge.domain.ToDoItem;
 import org.jooq.DSLContext;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+
+import static com.coding.challenge.db.tables.Todo.TODO;
 
 @Repository
 public class ToDoRepository {
 
     private DSLContext defaultDSLContext;
 
-    private ModelMapper modelMapper;
-
     @Autowired
-    public ToDoRepository(DSLContext defaultDSLContext, ModelMapper modelMapper) {
+    public ToDoRepository(DSLContext defaultDSLContext) {
         this.defaultDSLContext = defaultDSLContext;
-        this.modelMapper = modelMapper;
     }
 
     public List<ToDoItem> getAll() {
         return defaultDSLContext
-                .selectFrom(Todo.TODO)
+                .selectFrom(TODO)
                 .fetch()
-                .map(i -> modelMapper.map(i, ToDoItem.class));
+                .into(ToDoItem.class);
     }
 
-    public ToDoItem getById(Integer id) {
-        return defaultDSLContext
-                .selectFrom(Todo.TODO)
-                .where(Todo.TODO.ID.eq(id))
+    public Optional<ToDoItem> getById(Integer id) {
+        return Optional.of(defaultDSLContext
+                .selectFrom(TODO)
+                .where(TODO.ID.eq(id))
                 .fetchOne()
-                .map(i -> modelMapper.map(i, ToDoItem.class));
+                .into(ToDoItem.class));
     }
 
     public void insert(ToDoItem item) {
         defaultDSLContext
-                .insertInto(Todo.TODO)
+                .insertInto(TODO)
+                .columns(TODO.DESCRIPTION)
                 .values(item.getDescription());
     }
 
     public void update(ToDoItem item) {
         defaultDSLContext
-                .update(Todo.TODO)
-                .set(Todo.TODO.ARCHIVED, item.isArchived())
-                .set(Todo.TODO.DESCRIPTION, item.getDescription())
-                .where(Todo.TODO.ID.eq(item.getId()));
+                .update(TODO)
+                .set(TODO.ARCHIVED, item.isArchived())
+                .set(TODO.DESCRIPTION, item.getDescription())
+                .where(TODO.ID.eq(item.getId()));
     }
 }
