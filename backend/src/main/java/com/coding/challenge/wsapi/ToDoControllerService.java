@@ -17,8 +17,8 @@ public class ToDoControllerService {
         this.repository = repository;
     }
 
-    public List<ToDoItem> getAll() {
-        return repository.getAll();
+    public List<ToDoItem> getAll(Boolean archived) {
+        return repository.getAll(archived);
     }
 
     public void create(String description) {

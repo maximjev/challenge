@@ -51,7 +51,6 @@ public class JooqRepositoryTests {
             ));
 
             mock[0] = new MockResult(1, result);
-            System.out.println("MOCK: " + mock[0].toString());
             return mock;
         };
     }
@@ -67,7 +66,7 @@ public class JooqRepositoryTests {
 
     @Test
     public void testGetAll() {
-        ToDoItem result = repository.getAll().get(0);
+        ToDoItem result = repository.getAll(false).get(0);
 
         assertEquals(Integer.valueOf(1), result.getId());
         assertEquals("Mock description", result.getDescription());

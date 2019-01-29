@@ -20,9 +20,10 @@ public class ToDoRepository {
         this.defaultDSLContext = defaultDSLContext;
     }
 
-    public List<ToDoItem> getAll() {
+    public List<ToDoItem> getAll(Boolean archived) {
         return defaultDSLContext
                 .selectFrom(TODO)
+                .where(TODO.ARCHIVED.eq(archived))
                 .fetch()
                 .into(ToDoItem.class);
     }

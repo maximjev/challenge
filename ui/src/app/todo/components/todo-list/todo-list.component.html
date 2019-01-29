@@ -1,0 +1,19 @@
+<table mat-table [dataSource]="todos" class="mat-elevation-z8">
+  <ng-container matColumnDef="description">
+    <th mat-header-cell>Description</th>
+    <td mat-cell *mat-cell-def="let element">{{ element.description }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="createdOn">
+    <th mat-header-cell>Created on</th>
+    <td mat-cell *mat-cell-def="let element">{{ element.createdOn }}</td>
+  </ng-container>
+
+  <ng-container *ngIf="!archived" matColumnDef="archive">
+    <th mat-header-cell></th>
+    <td mat-cell *mat-cell-def="let element;"><button (click)="archive(element.id)">Archive</button></td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="COLUMN_DEF"></tr>
+  <tr mat-row *matRowDef="let row; columns: COLUMN_DEF;"></tr>
+</table>

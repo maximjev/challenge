@@ -19,9 +19,9 @@ public class ToDoController {
     private ToDoMapper mapper;
 
     @GetMapping
-    ResponseEntity<?> getAll() {
+    ResponseEntity<?> getAll(@RequestParam Boolean archived) {
         return ok(service
-                .getAll()
+                .getAll(archived)
                 .stream()
                 .map(mapper::toDTO)
                 .collect(toList()));
