@@ -1,5 +1,5 @@
-import {initialTodoState, TodoState} from "./todo.state";
-import {TodoAction, TodoActions} from "./todo.actions";
+import {initialTodoState, TodoState} from './todo.state';
+import {TodoAction, TodoActions} from './todo.actions';
 
 export function todoReducer(
   state = initialTodoState,

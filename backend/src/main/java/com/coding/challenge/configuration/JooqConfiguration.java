@@ -1,5 +1,6 @@
 package com.coding.challenge.configuration;
 
+import org.jooq.SQLDialect;
 import org.jooq.impl.DataSourceConnectionProvider;
 import org.jooq.impl.DefaultConfiguration;
 import org.jooq.impl.DefaultDSLContext;
@@ -20,6 +21,7 @@ public class JooqConfiguration {
 
     @Bean
     public DefaultDSLContext defaultDSLContext(DefaultConfiguration defaultConfiguration) {
+        defaultConfiguration.setSQLDialect(SQLDialect.POSTGRES);
         return new DefaultDSLContext(defaultConfiguration);
     }
 

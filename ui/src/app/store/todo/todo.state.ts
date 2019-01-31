@@ -1,4 +1,4 @@
-import {Todo} from "../../todo/model/todo";
+import {Todo} from '../../todo/model/todo';
 
 export interface TodoState {
   todos: Todo[];
@@ -6,6 +6,6 @@ export interface TodoState {
 }
 
 export const initialTodoState: TodoState = {
-  todos: null,
-  archivedTodos: null
+  todos: [],
+  archivedTodos: []
 };

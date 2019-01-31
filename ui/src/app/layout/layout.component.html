@@ -1,6 +1,9 @@
 <mat-drawer-container class="content-container">
   <mat-drawer mode="side" opened>
-    bla bla
+    <mat-nav-list>
+      <a mat-list-item><button routerLink="/todo" mat-button>Todo List</button></a>
+      <a mat-list-item><button routerLink="/archived" mat-button>Archived</button></a>
+    </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
     <router-outlet></router-outlet>

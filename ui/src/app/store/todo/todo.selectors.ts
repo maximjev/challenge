@@ -1,11 +1,9 @@
-import {createSelector} from "@ngrx/store";
-import {AppState} from "../app/app.state";
-import {TodoState} from "./todo.state";
+import {createSelector} from '@ngrx/store';
+import {AppState} from '../app/app.state';
+import {TodoState} from './todo.state';
 
 
-export const selectTodoState = createSelector(
-  (state: AppState) => state.todos
-);
+export const selectTodoState = (state: AppState) => state.todos;
 
 export const selectTodos = createSelector(
   selectTodoState,

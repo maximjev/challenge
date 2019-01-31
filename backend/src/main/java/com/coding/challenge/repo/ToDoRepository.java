@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.coding.challenge.db.tables.Todo.TODO;
+import static java.util.Optional.*;
 
 @Repository
 public class ToDoRepository {
@@ -29,7 +30,7 @@ public class ToDoRepository {
     }
 
     public Optional<ToDoItem> getById(Integer id) {
-        return Optional.of(defaultDSLContext
+        return of(defaultDSLContext
                 .selectFrom(TODO)
                 .where(TODO.ID.eq(id))
                 .fetchOne()
@@ -40,7 +41,8 @@ public class ToDoRepository {
         defaultDSLContext
                 .insertInto(TODO)
                 .columns(TODO.DESCRIPTION)
-                .values(item.getDescription());
+                .values(item.getDescription())
+                .execute();
     }
 
     public void update(ToDoItem item) {
@@ -48,6 +50,7 @@ public class ToDoRepository {
                 .update(TODO)
                 .set(TODO.ARCHIVED, item.isArchived())
                 .set(TODO.DESCRIPTION, item.getDescription())
-                .where(TODO.ID.eq(item.getId()));
+                .where(TODO.ID.eq(item.getId()))
+                .execute();
     }
 }

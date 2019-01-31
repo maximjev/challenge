@@ -1,6 +1,7 @@
 package com.coding.challenge.wsapi;
 
 import com.coding.challenge.mapper.ToDoMapper;
+import com.coding.challenge.wsapi.dto.ToDoCreateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +29,8 @@ public class ToDoController {
     }
 
     @PostMapping
-    public void create(String description) {
-        service.create(description);
+    public void create(@RequestBody ToDoCreateDTO createDTO) {
+        service.create(createDTO.getDescription());
     }
 
     @GetMapping("/{id}/archive")

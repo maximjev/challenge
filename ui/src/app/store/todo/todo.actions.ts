@@ -1,5 +1,14 @@
-import {Action} from "@ngrx/store";
-import {Todo} from "../../todo/model/todo";
+import {Action} from '@ngrx/store';
+import {Todo} from '../../todo/model/todo';
+
+export type TodoAction =
+  RefreshTodos |
+  LoadTodos |
+  SetTodos |
+  LoadArchivedTodos |
+  SetArchivedTodos |
+  CreateTodo |
+  ArchiveTodo;
 
 export enum TodoActions {
   REFRESH_TODOS = '[Todos] REFRESH_TODOS',
@@ -46,12 +55,3 @@ export class ArchiveTodo implements Action {
 
   constructor(public id: number) {}
 }
-
-export type TodoAction =
-  RefreshTodos |
-  LoadTodos |
-  SetTodos |
-  LoadArchivedTodos |
-  SetArchivedTodos |
-  CreateTodo |
-  ArchiveTodo;

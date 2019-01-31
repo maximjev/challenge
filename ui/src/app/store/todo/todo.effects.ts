@@ -1,18 +1,17 @@
-import {Injectable} from "@angular/core";
-import {Actions, Effect, ofType} from "@ngrx/effects";
-import {TodoService} from "../../todo/service/todo.service";
+import {Injectable} from '@angular/core';
+import {Actions, Effect, ofType} from '@ngrx/effects';
+import {TodoService} from '../../todo/service/todo.service';
 import {
   ArchiveTodo,
   CreateTodo,
-  LoadArchivedTodos,
   LoadTodos,
   SetArchivedTodos,
   SetTodos,
   TodoActions
-} from "./todo.actions";
-import {map, switchMap} from "rxjs/operators";
-import {Todo} from "../../todo/model/todo";
-import {of} from "rxjs";
+} from './todo.actions';
+import {map, switchMap} from 'rxjs/operators';
+import {Todo} from '../../todo/model/todo';
+import {of} from 'rxjs';
 
 
 @Injectable()
@@ -51,6 +50,6 @@ export class TodoEffects {
     ofType(TodoActions.ARCHIVE_TODO),
     map((action: ArchiveTodo) => action.id),
     switchMap(id => this.todoService.archive(id)),
-    switchMap(() => of(new LoadTodos(), new LoadArchivedTodos()))
+    switchMap(() => of(new LoadTodos()))
   );
 }

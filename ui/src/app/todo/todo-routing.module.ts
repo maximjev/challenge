@@ -1,7 +1,8 @@
-import {NgModule} from "@angular/core";
-import {RouterModule, Routes} from "@angular/router";
-import {TodoListContainerComponent} from "./components/todo-list-container/todo-list-container.component";
-import {CommonModule} from "@angular/common";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {TodoListContainerComponent} from './components/todo-list-container/todo-list-container.component';
+import {CommonModule} from '@angular/common';
+import {TodoArchivedContainerComponent} from './components/todo-archived-container/todo-archived-container.component';
 
 const routes: Routes = [
   {
@@ -15,8 +16,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'todos/archived',
-    component: TodoListContainerComponent,
+    path: 'archived',
+    component: TodoArchivedContainerComponent,
     pathMatch: 'full'
   }
 ];
