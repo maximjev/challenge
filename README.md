@@ -1,6 +1,7 @@
 For Backend to start, database and flyway must be running, therefore we start the application in two commands:
 </br>
 `docker-compose up --detach db flyway`
+</br>
 When database is running and migrations applied, we can build and start the app:
 </br>
 `docker-compose up --build`
@@ -9,3 +10,4 @@ When database is running and migrations applied, we can build and start the app:
 For development purposes, there is docker compose file which starts only database and flyway, use:
 </br>
 `docker-compose -f docker-compose.local.yml up`
+</br>
