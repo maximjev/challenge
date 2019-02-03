@@ -1,6 +1,10 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TodoArchivedContainerComponent } from './todo-archived-container.component';
+import {TodoArchivedContainerComponent} from './todo-archived-container.component';
+import {TodoListComponent} from '../todo-list/todo-list.component';
+import {MatTableModule} from '@angular/material';
+import {StoreModule} from '@ngrx/store';
+import {appReducers} from '../../../store/app/app.reducers';
 
 describe('TodoArchivedContainerComponent', () => {
   let component: TodoArchivedContainerComponent;
@@ -8,9 +12,16 @@ describe('TodoArchivedContainerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TodoArchivedContainerComponent ]
+      imports: [
+        MatTableModule,
+        StoreModule.forRoot(appReducers)
+      ],
+      declarations: [
+        TodoArchivedContainerComponent,
+        TodoListComponent
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

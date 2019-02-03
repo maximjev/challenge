@@ -1,6 +1,10 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TodoListContainerComponent} from './todo-list-container.component';
+import {MatDialogModule, MatTableModule} from '@angular/material';
+import { StoreModule} from '@ngrx/store';
+import {appReducers} from '../../../store/app/app.reducers';
+import {TodoListComponent} from '../todo-list/todo-list.component';
 
 describe('TodoListContainerComponent', () => {
   let component: TodoListContainerComponent;
@@ -8,9 +12,17 @@ describe('TodoListContainerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TodoListContainerComponent ]
+      imports: [
+        MatTableModule,
+        MatDialogModule,
+        StoreModule.forRoot(appReducers)
+      ],
+      declarations: [
+        TodoListContainerComponent,
+        TodoListComponent
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

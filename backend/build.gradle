@@ -29,7 +29,6 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'nu.studer.jooq'
 
 group = 'com.coding'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 repositories {

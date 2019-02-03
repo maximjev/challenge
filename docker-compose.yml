@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+
+  db:
+    image: postgres:latest
+    restart: on-failure
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: secure_password
+
+  flyway:
+    image: boxfuse/flyway:latest
+    command: -url=jdbc:postgresql://db/postgres -user=postgres -password=secure_password -connectRetries=30 migrate
+    volumes:
+      - ./backend/flyway:/flyway/sql
+    depends_on:
+      - db
+
+  backend:
+    hostname: localhost
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    container_name: backend
+    build:
+      context: './backend'
+      network: host
+    depends_on:
+      - db
+      - flyway
+    ports:
+      - 8080:8080
+
+  ui:
+    hostname: localhost
+    container_name: ui
+    build: './ui'
+    ports:
+      - 4200:80
